@@ -1,0 +1,144 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn5dja0q7odsp"]
+
+[ext_resource type="Texture2D" uid="uid://dwhl5uovg7tdd" path="res://assets/Pixel art Heart 8-bit.png" id="1_acgbq"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_krcn8"]
+[ext_resource type="Script" path="res://scripts/Pause.gd" id="2_pb0jb"]
+
+[sub_resource type="FontFile" id="FontFile_3l8hb"]
+cache/0/30/0/ascent = 0.0
+cache/0/30/0/descent = 0.0
+cache/0/30/0/underline_position = 0.0
+cache/0/30/0/underline_thickness = 0.0
+cache/0/30/0/scale = 1.0
+cache/0/30/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/30/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/30/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[node name="UI" type="CanvasLayer" node_paths=PackedStringArray("hearts")]
+script = ExtResource("1_krcn8")
+hearts = [NodePath("UI Panels/Panel2/HBoxContainer/Heart"), NodePath("UI Panels/Panel2/HBoxContainer/Heart2"), NodePath("UI Panels/Panel2/HBoxContainer/Heart3")]
+
+[node name="UI Panels" type="Node" parent="."]
+
+[node name="Panel" type="Panel" parent="UI Panels"]
+offset_left = 15.0
+offset_top = 13.0
+offset_right = 279.0
+offset_bottom = 104.0
+
+[node name="PointsLabel" type="Label" parent="UI Panels/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = SubResource("FontFile_3l8hb")
+theme_override_font_sizes/font_size = 30
+text = "Points: 0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel2" type="Panel" parent="UI Panels"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -263.0
+offset_bottom = 91.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI Panels/Panel2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -131.0
+offset_top = -30.5
+offset_right = 131.0
+offset_bottom = 30.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Heart" type="TextureRect" parent="UI Panels/Panel2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_acgbq")
+expand_mode = 2
+
+[node name="Heart2" type="TextureRect" parent="UI Panels/Panel2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_acgbq")
+expand_mode = 2
+
+[node name="Heart3" type="TextureRect" parent="UI Panels/Panel2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_acgbq")
+expand_mode = 2
+
+[node name="Pause" type="Node" parent="."]
+script = ExtResource("2_pb0jb")
+
+[node name="PausePanel" type="Panel" parent="Pause"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Pause/PausePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "GAME PAUSED"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pause/PausePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = 42.0
+offset_right = 170.0
+offset_bottom = 193.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+
+[node name="Resume" type="Button" parent="Pause/PausePanel/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Resume"
+
+[node name="Menu" type="Button" parent="Pause/PausePanel/VBoxContainer"]
+process_mode = 3
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Go to main menu
+"
+
+[connection signal="pressed" from="Pause/PausePanel/VBoxContainer/Resume" to="Pause" method="_on_resume_pressed"]
+[connection signal="pressed" from="Pause/PausePanel/VBoxContainer/Menu" to="Pause" method="_on_menu_pressed"]
